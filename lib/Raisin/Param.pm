@@ -27,32 +27,35 @@ sub new {
     $self;
 }
 
+sub app {
+    Raisin::API->app
+}
+
 sub _parse {
     my ($self, $spec) = @_;
     $self->{$_} = $spec->{$_} for qw(name type default regex desc);
 }
 
 sub validate {
-    my ($self, $ref_value, $quiet) = @_;
+    my ($self, $ref_value) = @_;
 
     # Required
-    # Only optional parameters can has default value
+    # Only optional parameters can have default value
     if ($self->required && !defined($$ref_value)) {
-        #TODO: $self->app->log($e);
-        print STDERR "`$self->{name}' is required but empty!\n" unless $quiet;
+        $self->app->log(warn => '`%s` is required', $self->name);
         return;
     }
 
     # Optional and empty
     if (!defined($$ref_value) && !$self->required) {
-        #carp STDERR "$self->{name} optional and empty.";
+        $self->app->log(debug => '`%s` is optional and empty', $self->name);
         return 1;
     }
 
     # TODO: validate HASHes
     if ($$ref_value && ref $$ref_value && ref $$ref_value ne 'ARRAY') {
-        #TODO: $self->app->log($e);
-        #print STDERR "`$self->{name}' \$ref_value should be SCALAR or ARRAYREF\n" unless $quiet;
+        $self->app->log(debug => '`%s` is %s should be SCALAR or ARRAY',
+            $self->name, ref $$ref_value);
         return 1;
     }
 
@@ -64,23 +67,16 @@ sub validate {
 
     for my $v (@$$ref_value) {
         # Type check
-        eval { $v = $self->type->($v) };
-        if (my $e = $@) {
-            unless ($quiet) {
-                #TODO: $self->app->log($e);
-                printf STDERR "Param `%s' didn't pass type constraint `%s' with value \"%s\".\n",
-                    $self->name, $self->type->name, $v;
-            }
+        eval { $v = $self->type->($v) } or do {
+            $self->app->log(debug => '`%s` failed type constraint `%s` with "%s"',
+                $self->name, $self->type->name, $v);
             return;
-        }
+        };
 
         # Param check
         if ($self->regex && $v !~ $self->regex) {
-            unless ($quiet) {
-                #TODO: $self->app->log($e);
-                printf STDERR "Param `%s' didn't pass regex constraint `%s' with value \"%s\".\n",
-                    $self->name, $self->regex, $v;
-            }
+            $self->app->log(debug => '`%s` failed regex constraint `%s` with "%s"',
+                $self->name, $self->regex, $v);
             return;
         }
     }

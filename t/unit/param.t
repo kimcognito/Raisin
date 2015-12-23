@@ -7,8 +7,6 @@ use Test::More;
 use Raisin::Param;
 use Types::Standard qw(ScalarRef Any Num Str Int);
 
-my $QUIET = 1;
-
 my @CASES = (
     {
         test => {
@@ -126,7 +124,7 @@ subtest 'validate' => sub {
             isa_ok $param, 'Raisin::Param', 'param';
 
             my $test = $case->{input};
-            is $param->validate(\$test, $QUIET), $case->{expected}, "validate: $case->{input}";
+            is $param->validate(\$test), $case->{expected}, "validate: $case->{input}";
         };
     }
 };

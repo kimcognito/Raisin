@@ -1,33 +1,37 @@
+0.63 Improvements
+    - Update `Raisin::Logger`;
+    - Log instead of print in `Raisin::Param`;
+
 0.62 Fixes
-    * Fix accept header;
-    * Use `while` instead of `List::Util::pairs`;
-    * Fix a `format` capturing (GitHub issue #14);
+    - Fix accept header;
+    - Use `while` instead of `List::Util::pairs`;
+    - Fix a `format` capturing (GitHub issue #14);
 
 0.61 Fixes
-    * Fix an accept header's bevahiour (RFC7231);
-    * Fix `param` method;
-    * Fix & improve Swagger plugin;
-    * Minor fixes;
+    - Fix an accept header's bevahiour (RFC7231);
+    - Fix `param` method;
+    - Fix & improve Swagger plugin;
+    - Minor fixes;
 
 0.60 OPTIONS
-    * Add support for a HTTP OPTIONS verb;
-    * Add new intergration tests;
+    - Add support for a HTTP OPTIONS verb;
+    - Add new intergration tests;
 
 0.59 Include missing
-    * Fix examples;
-    * Fix a `t/unit/plugin/format/text.t` test;
-    * Add an `include_missing` function;
+    - Fix examples;
+    - Fix a `t/unit/plugin/format/text.t` test;
+    - Add an `include_missing` function;
 
 0.58 Swagger 2.0
-    * Add support for a Swagger 2.0;
-    * Minor fixes;
-    * Improve a coverage;
+    - Add support for a Swagger 2.0;
+    - Minor fixes;
+    - Improve a coverage;
 
 0.57 Fix
-    * Fix `t/unit/plugin/format/*` tests;
-    * A new `t/unit/api.t` test;
-    * New `t/unit/integration` tests;
-    * Small fixes in `API`, `Entity` & `Param`;
+    - Fix `t/unit/plugin/format/*` tests;
+    - A new `t/unit/api.t` test;
+    - New `t/unit/integration` tests;
+    - Small fixes in `API`, `Entity` & `Param`;
 
 0.56 Fix
     * Skip a `t/unit/plugin/logger.t` test;
@@ -48,7 +52,7 @@
     - Cleanup Attributes;
     - Return to X.XX version format;
 
-0.5200 Fixes & Improvments
+0.5200 Fixes & Improvements
     - Update documentation;
     - New way of rendering data:
         * store user's endpoint into response body if any;

@@ -109,7 +109,7 @@ sub match {
     foreach my $p (@{ $self->params }) {
         next unless $p->named;
         my $copy = $captured{ $p->name };
-        return unless $p->validate(\$copy, 'quite');
+        return unless $p->validate(\$copy);
     }
 
     $self->named(\%captured);

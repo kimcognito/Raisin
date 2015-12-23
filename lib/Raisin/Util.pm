@@ -28,11 +28,11 @@ sub detect_serializer {
 
     my $media = 'default';
 
-    if ($type =~ m#^([^/]+)/\*#) {
+    if ($type =~ m#^([^/]+)/\*#imsx) {
         $media = $1;
     }
     else {
-        $type =~ m#(?:^[^/]+/)?(.+)#msix;
+        $type =~ m#(?:^[^/]+/)?(.+)#imsx;
         $media = $1;
         $media =~ tr#-#_#;
     }
