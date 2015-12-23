@@ -5,14 +5,29 @@ use warnings;
 
 my $FH = *STDERR;
 
+my %LEVELS = (
+    DEBUG     => 0,
+    INFO      => 1,
+    NOTICE    => 2,
+    WARNING   => 3,
+    WARN      => 3,
+    ERROR     => 4,
+    CRITICAL  => 5,
+    ALERT     => 6,
+    EMERGENCY => 7,
+);
+
 sub new {
-    my $class = shift;
-    my $self = bless { }, $class;
+    my ($class, %args) = @_;
+    my $self = bless { %args }, $class;
     $self;
 }
 
+sub min_level { shift->{min_level} || 'WARNING' }
+
 sub log {
     my ($self, %args) = @_;
+    return if $LEVELS{ uc($args{level}) } < $LEVELS{ uc($self->min_level) };
     printf $FH '%s %s', uc($args{level}), $args{message};
 }
 
